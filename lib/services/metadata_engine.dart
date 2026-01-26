@@ -1,36 +1,63 @@
 // lib/shared/services/metadata_engine.dart
-import 'package:image/image.dart' as img;
 import 'dart:io';
+import 'package:image/image.dart' as img;
+import 'package:exif/exif.dart';
+
+import '../shared/models/image_model.dart';
 
 class MetadataEngine {
+  static Future<ImageFile> scanMetadata(File imageFile) async {
+    try {
+      final bytes = await imageFile.readAsBytes();
+      final decodedImage = img.decodeImage(bytes);
+      final exifData = await readExifFromBytes(bytes);
+
+      final hasGps = exifData.containsKey('GPS GPSLatitude') ||
+          exifData.containsKey('GPS GPSLongitude');
+      final hasCamera = exifData.containsKey('Image Make') ||
+          exifData.containsKey('Image Model');
+      final hasTimestamp = exifData.containsKey('Image DateTime');
+
+      final riskScore = _calculateRisk(hasGps, hasCamera, hasTimestamp);
+
+      return ImageFile(
+        path: imageFile.path,
+        name: imageFile.path.split('/').last,
+        hasGps: hasGps,
+        hasCamera: hasCamera,
+        hasTimestamp: hasTimestamp,
+        riskLevel: riskScore,
+        originalSize: bytes.length,
+      );
+    } catch (e) {
+      return ImageFile(
+        path: imageFile.path,
+        name: imageFile.path.split('/').last,
+        riskLevel: 'LOW',
+      );
+    }
+  }
+
   static Future<File> removeMetadata(File imageFile) async {
     final bytes = await imageFile.readAsBytes();
     final image = img.decodeImage(bytes);
 
-    if (image == null) throw Exception('Invalid image');
+    if (image == null) {
+      throw Exception('Invalid image file');
+    }
 
-    // Remove all metadata by re-encoding without EXIF
-    final cleanedImage = img.encodeJpg(image, quality: 95);
+    // Re-encode without metadata
+    final cleanedBytes = img.encodeJpg(image, quality: 95);
+    final outputPath = '${imageFile.path}_cleaned.jpg';
+    final outputFile = File(outputPath);
 
-    final outputFile = File('${imageFile.path}_cleaned.jpg');
-    await outputFile.writeAsBytes(cleanedImage);
-
+    await outputFile.writeAsBytes(cleanedBytes);
     return outputFile;
   }
 
-  static Future<Map<String, dynamic>> scanMetadata(File imageFile) async {
-    final bytes = await imageFile.readAsBytes();
-    final image = img.decodeImage(bytes);
-
-    // Parse EXIF data (GPS, camera, timestamp)
-    final hasGps = image.exif?.ifd0['GPS GPSLatitude'] != null;
-    final hasCamera = image.exif?.ifd0['Make'] != null;
-
-    return {
-      'gps': hasGps,
-      'camera': hasCamera,
-      'timestamp': true, // Always present
-      'riskLevel': hasGps ? 'HIGH' : 'LOW',
-    };
+  static String _calculateRisk(bool gps, bool camera, bool timestamp) {
+    if (gps) return 'HIGH';
+    if (camera) return 'MEDIUM';
+    return 'LOW';
   }
 }
