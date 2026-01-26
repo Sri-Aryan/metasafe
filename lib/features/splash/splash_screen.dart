@@ -1,12 +1,13 @@
-// lib/features/splash/splash_screen.dart
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../appcolors.dart';
 import '../../core/providers/global_provider.dart';
-import '../../shared/widgets/glass_card.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
@@ -20,42 +21,94 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   void initState() {
     super.initState();
     _pulseController = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       vsync: this,
     );
-    _pulseAnimation = Tween<double>(begin: 0.8, end: 1.2).animate(
-      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    _pulseAnimation = Tween<double>(begin: 0.9, end: 1.1).animate(
+      CurvedAnimation(
+        parent: _pulseController,
+        curve: Curves.easeInOut,
+      ),
     );
     _pulseController.repeat(reverse: true);
 
-    Future.delayed(Duration(seconds: 2), _navigate);
+    _navigateAfterDelay();
   }
 
-  void _navigate() {
+  Future<void> _navigateAfterDelay() async {
+    await Future.delayed(const Duration(seconds: 2));
+    if (!mounted) return;
+
     final isOnboarded = ref.read(onboardingCompletedProvider);
-    context.go(isOnboarded ? '/home' : '/onboarding');
+    if (mounted) {
+      context.go(isOnboarded ? '/home' : '/onboarding');
+    }
+  }
+
+  @override
+  void dispose() {
+    _pulseController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GradientBackground(
-        children: [
-          Center(
-            child: ScaleTransition(
-              scale: _pulseAnimation,
-              child: Text(
-                'MetaClean',
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                  foregroundPainter: Paint()
-                    ..shader = LinearGradient(
-                      colors: [AppColors.primaryLightBlue, Colors.white],
-                    ).createShader(Rect.fromLTWH(0, 0, 200, 100)),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              AppColors.primaryLightBlue,
+              AppColors.primaryDarkBlue,
+              AppColors.blackBackground,
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ScaleTransition(
+                        scale: _pulseAnimation,
+                        child: ShaderMask(
+                          shaderCallback: (bounds) => AppColors.primaryGradient
+                              .createShader(bounds),
+                          blendMode: BlendMode.srcIn,
+                          child: Text(
+                            'MetaClean',
+                            style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                              height: 1.2,
+                              shadows: [
+                                Shadow(
+                                  color: Colors.black.withOpacity(0.4),
+                                  offset: const Offset(0, 2),
+                                  blurRadius: 6,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                      const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryLightBlue),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
