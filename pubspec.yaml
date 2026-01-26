@@ -38,7 +38,6 @@ dependencies:
   image:
   path_provider:
   permission_handler:
-  google_mobile_ads:
   shared_preferences:
   device_info_plus:
   share_plus:
