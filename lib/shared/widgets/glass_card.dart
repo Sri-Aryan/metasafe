@@ -2,7 +2,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import '../../appcolors.dart';
 
 class GlassCard extends StatelessWidget {
   final Widget child;
@@ -33,27 +33,6 @@ class GlassCard extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
         child: child,
       ),
-    );
-  }
-}
-
-// lib/shared/widgets/gradient_background.dart
-class GradientBackground extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 350),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            AppColors.primaryLightBlue,
-            AppColors.blackBackground,
-          ],
-        ),
-      ),
-      child: SafeArea(child: EdgeInsets.all(0).child),
     );
   }
 }
