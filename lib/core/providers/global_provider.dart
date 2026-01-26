@@ -19,14 +19,3 @@ class OnboardingNotifier extends StateNotifier<bool> {
   }
 }
 
-// lib/features/home/providers/home_providers.dart
-final homeStateProvider = StateNotifierProvider.autoDispose<HomeNotifier, HomeState>(
-      (ref) => HomeNotifier(),
-);
-
-class HomeState {
-  final bool isLoading;
-  final List<String> recentFiles;
-
-  const HomeState({this.isLoading = false, this.recentFiles = const []});
-}
