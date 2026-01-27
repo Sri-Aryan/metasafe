@@ -1,8 +1,5 @@
-// lib/shared/widgets/glass_card.dart
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import '../../appcolors.dart';
 
 class GlassCard extends StatelessWidget {
   final Widget child;

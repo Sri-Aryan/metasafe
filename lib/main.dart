@@ -1,8 +1,6 @@
-// lib/app.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/providers/global_provider.dart';
-import 'core/theme/app_theme.dart';
 import 'app_router.dart';
 
 class MetaCleanApp extends ConsumerWidget {
