@@ -34,13 +34,16 @@ dependencies:
   go_router:
   flutter_animate:
   image_picker:
-  exif:
+  exif: ^3.3.0
+  exif_reader:
   image:
   path_provider:
   permission_handler:
   shared_preferences:
   device_info_plus:
   share_plus:
+  carousel_slider:
+
 
 
   # The following adds the Cupertino Icons font to your application.

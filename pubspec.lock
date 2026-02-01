@@ -49,6 +49,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  brotli:
+    dependency: transitive
+    description:
+      name: brotli
+      sha256: "7f891558ed779aab2bed874f0a36b8123f9ff3f19cf6efbee89e18ed294945ae"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.0"
   build:
     dependency: transitive
     description:
@@ -73,6 +81,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "8.12.3"
+  carousel_slider:
+    dependency: "direct main"
+    description:
+      name: carousel_slider
+      sha256: bcc61735345c9ab5cb81073896579e735f81e35fd588907a393143ea986be8ff
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.1"
   characters:
     dependency: transitive
     description:
@@ -169,6 +185,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0"
+  exif_reader:
+    dependency: "direct main"
+    description:
+      name: exif_reader
+      sha256: "8491a1733f31b5b0c49d05e3fd2690538f1906b52f156d9d1fe7fad9d76bcced"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   fake_async:
     dependency: transitive
     description:
@@ -392,6 +416,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.2"
+  iso_base_media:
+    dependency: transitive
+    description:
+      name: iso_base_media
+      sha256: "0bd81707d2608b63d30e99b4ad89ad189a438c03842a480fb593641939bc534a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.0"
+  jpeg_markers:
+    dependency: transitive
+    description:
+      name: jpeg_markers
+      sha256: "9417cd62862e5e9f38087bb13193623c1be70c477d93c329540f105643716059"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.7.0"
   json_annotation:
     dependency: transitive
     description:
@@ -632,6 +672,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  random_access_source:
+    dependency: transitive
+    description:
+      name: random_access_source
+      sha256: "2cb3578e3027d6f7e44a66ec9bf72f5e0b73e9c0e62f4768977a0ed962d08be7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.1"
   riverpod:
     dependency: transitive
     description:
