@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'dart:io';
 import '../../shared/widgets/glass_card.dart';
 import '../../shared/widgets/gradient_text.dart';
 import '../appcolors.dart';
 import '../core/providers/home_provider.dart';
 import '../shared/widgets/quick_actions.dart';
+import 'deatail_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
-  // Fixed demo images for carousel
   static const List<String> _demoImages = [
     'assets/images/demo1.jpg',
     'assets/images/demo2.jpg',
@@ -314,7 +312,7 @@ class HomeScreen extends ConsumerWidget {
       );
 
       if (image != null && context.mounted) {
-        context.push('/details', extra: image.path);
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailsScreen(imagePath: image.path)));
       }
     } catch (e) {
       debugPrint('Image selection error: $e');
