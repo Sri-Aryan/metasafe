@@ -67,6 +67,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
     }
   }
 
+
   Future<void> addRecentFile(ImageFile file) async {
     final updated = [file, ...state.recentFiles];
     state = state.copyWith(recentFiles: updated.take(10).toList());

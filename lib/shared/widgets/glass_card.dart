@@ -26,10 +26,7 @@ class GlassCard extends StatelessWidget {
         ),
         color: Colors.white.withOpacity(0.15),
       ),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-        child: child,
-      ),
+      child: child,
     );
   }
 }
