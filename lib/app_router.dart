@@ -1,6 +1,4 @@
-// lib/app_router.dart
 import 'package:go_router/go_router.dart';
-
 import 'features/home_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/splash/splash_screen.dart';
