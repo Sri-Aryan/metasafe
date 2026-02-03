@@ -1,4 +1,3 @@
-// lib/core/animations/fade_slide_transition.dart
 import 'package:flutter/cupertino.dart';
 
 class FadeSlideTransition extends StatelessWidget {
