@@ -1,6 +1,4 @@
-// lib/features/home/providers/home_providers.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../shared/models/image_model.dart';
 
 class HomeState {
