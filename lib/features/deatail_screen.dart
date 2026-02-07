@@ -4,7 +4,6 @@ import 'package:exif/exif.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image/image.dart' as img;
-import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../shared/widgets/glass_card.dart';
 import '../../shared/widgets/gradient_text.dart';
@@ -45,7 +44,7 @@ class SuccessDialog extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: Colors.green.withOpacity(0.5),
+                  color: Colors.green,
                   width: 3,
                 ),
               ),
@@ -82,7 +81,6 @@ class SuccessDialog extends StatelessWidget {
 
             const SizedBox(height: 32),
 
-            // 📁 NEW: File Path Display Section
             GlassCard(
               child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -111,7 +109,7 @@ class SuccessDialog extends StatelessWidget {
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: AppColors.blackBackground.withOpacity(0.5),
+                        color: AppColors.blackBackground,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: AppColors.glassBorder,
@@ -150,7 +148,7 @@ class SuccessDialog extends StatelessWidget {
 
                     // File Size Info
                     Text(
-                      'Original: ${originalFileName}',
+                      'Original: $originalFileName',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: AppColors.textMuted,
                         fontStyle: FontStyle.italic,
@@ -382,7 +380,6 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen>
             ),
           ),
 
-          // Scrollable Metadata Content
           Positioned.fill(
             top: MediaQuery.of(context).size.height * 0.45,
             child: Container(
@@ -609,10 +606,10 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen>
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.red.withOpacity(0.2),
+                    color: Colors.red ,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: Colors.red.withOpacity(0.4),
+                      color: Colors.red,
                     ),
                   ),
                   child: Row(
