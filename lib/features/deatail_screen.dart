@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:exif/exif.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image/image.dart' as img;
 import 'package:share_plus/share_plus.dart';
 import '../../shared/widgets/glass_card.dart';
@@ -263,8 +264,13 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen>
       await File(outputPath).writeAsBytes(cleanedBytes);
 
       if (mounted) {
-        // ✅ PASS BOTH PATHS to SuccessDialog
-        _showSuccessScreen(outputPath, originalFileName);
+        context.push(
+          '/success',
+          extra: {
+            'cleanedImagePath': outputPath,
+            'originalFileName': originalFileName,
+          },
+        );
       }
     } catch (e) {
       if (mounted) {
@@ -635,66 +641,3 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen>
     );
   }
 }
-
-// Success Screen Dialog
-// class SuccessDialog extends StatelessWidget {
-//   final String imagePath;
-//
-//   const SuccessDialog({super.key, required this.imagePath});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Dialog(
-//       backgroundColor: Colors.transparent,
-//       insetPadding: const EdgeInsets.all(32),
-//       child: GlassCard(
-//         child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           children: [
-//             Container(
-//               padding: const EdgeInsets.all(24),
-//               decoration: BoxDecoration(
-//                 color: Colors.green.withOpacity(0.2),
-//                 shape: BoxShape.circle,
-//               ),
-//               child: const Icon(
-//                 Icons.check_circle_rounded,
-//                 color: Colors.green,
-//                 size: 64,
-//               ),
-//             ),
-//             const SizedBox(height: 24),
-//             const GradientText(
-//               '✅ Privacy Saved!',
-//               style: TextStyle(
-//                 fontSize: 28,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//             const SizedBox(height: 12),
-//             const Text(
-//               'Metadata successfully removed',
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 fontSize: 16,
-//                 color: AppColors.textSecondary,
-//                 height: 1.4,
-//               ),
-//             ),
-//             const SizedBox(height: 32),
-//             Row(
-//               children: [
-//                 Expanded(
-//                   child: TextButton(
-//                     onPressed: () => Navigator.pop(context),
-//                     child: const Text('Done'),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
