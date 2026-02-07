@@ -20,7 +20,6 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homeState = ref.watch(homeStateProvider);
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -153,8 +152,8 @@ class HomeScreen extends ConsumerWidget {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          AppColors.primaryLightBlue.withOpacity(0.3),
-                          AppColors.primaryLightBlue.withOpacity(0.1),
+                          AppColors.primaryLightBlue,
+                          AppColors.primaryLightBlue,
                         ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -163,7 +162,7 @@ class HomeScreen extends ConsumerWidget {
                     child: Icon(
                       Icons.photo_library_outlined,
                       size: 60,
-                      color: AppColors.whiteText.withOpacity(0.3),
+                      color: AppColors.whiteText,
                     ),
                   );
                 },
@@ -181,7 +180,7 @@ class HomeScreen extends ConsumerWidget {
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
                       colors: [
-                        Colors.black.withOpacity(0.7),
+                        Colors.black,
                         Colors.transparent,
                       ],
                     ),
@@ -232,8 +231,8 @@ class HomeScreen extends ConsumerWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    AppColors.primaryLightBlue.withOpacity(0.2),
-                    AppColors.primaryLightBlue.withOpacity(0.1),
+                    AppColors.primaryLightBlue ,
+                    AppColors.primaryLightBlue,
                   ],
                 ),
                 shape: BoxShape.circle,
@@ -241,7 +240,7 @@ class HomeScreen extends ConsumerWidget {
               child: Icon(
                 Icons.photo_library_outlined,
                 size: 100,
-                color: AppColors.whiteText.withOpacity(0.9),
+                color: AppColors.whiteText,
               ),
             ),
             const SizedBox(height: 32),
@@ -268,10 +267,10 @@ class HomeScreen extends ConsumerWidget {
                 vertical: 8,
               ),
               decoration: BoxDecoration(
-                color: AppColors.primaryLightBlue.withOpacity(0.1),
+                color: AppColors.primaryLightBlue,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: AppColors.primaryLightBlue.withOpacity(0.3),
+                  color: AppColors.primaryLightBlue,
                   width: 1,
                 ),
               ),
