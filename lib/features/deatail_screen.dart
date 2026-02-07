@@ -3,8 +3,8 @@ import 'dart:typed_data';
 import 'package:exif/exif.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image/image.dart' as img;
-import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../shared/widgets/glass_card.dart';
 import '../../shared/widgets/gradient_text.dart';
@@ -45,7 +45,7 @@ class SuccessDialog extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: Colors.green.withOpacity(0.5),
+                  color: Colors.green,
                   width: 3,
                 ),
               ),
@@ -82,7 +82,6 @@ class SuccessDialog extends StatelessWidget {
 
             const SizedBox(height: 32),
 
-            // 📁 NEW: File Path Display Section
             GlassCard(
               child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -111,7 +110,7 @@ class SuccessDialog extends StatelessWidget {
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: AppColors.blackBackground.withOpacity(0.5),
+                        color: AppColors.blackBackground,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: AppColors.glassBorder,
@@ -150,7 +149,7 @@ class SuccessDialog extends StatelessWidget {
 
                     // File Size Info
                     Text(
-                      'Original: ${originalFileName}',
+                      'Original: $originalFileName',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: AppColors.textMuted,
                         fontStyle: FontStyle.italic,
@@ -265,8 +264,13 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen>
       await File(outputPath).writeAsBytes(cleanedBytes);
 
       if (mounted) {
-        // ✅ PASS BOTH PATHS to SuccessDialog
-        _showSuccessScreen(outputPath, originalFileName);
+        context.push(
+          '/success',
+          extra: {
+            'cleanedImagePath': outputPath,
+            'originalFileName': originalFileName,
+          },
+        );
       }
     } catch (e) {
       if (mounted) {
@@ -382,7 +386,6 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen>
             ),
           ),
 
-          // Scrollable Metadata Content
           Positioned.fill(
             top: MediaQuery.of(context).size.height * 0.45,
             child: Container(
@@ -609,10 +612,10 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen>
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.red.withOpacity(0.2),
+                    color: Colors.red ,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: Colors.red.withOpacity(0.4),
+                      color: Colors.red,
                     ),
                   ),
                   child: Row(
@@ -638,66 +641,3 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen>
     );
   }
 }
-
-// Success Screen Dialog
-// class SuccessDialog extends StatelessWidget {
-//   final String imagePath;
-//
-//   const SuccessDialog({super.key, required this.imagePath});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Dialog(
-//       backgroundColor: Colors.transparent,
-//       insetPadding: const EdgeInsets.all(32),
-//       child: GlassCard(
-//         child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           children: [
-//             Container(
-//               padding: const EdgeInsets.all(24),
-//               decoration: BoxDecoration(
-//                 color: Colors.green.withOpacity(0.2),
-//                 shape: BoxShape.circle,
-//               ),
-//               child: const Icon(
-//                 Icons.check_circle_rounded,
-//                 color: Colors.green,
-//                 size: 64,
-//               ),
-//             ),
-//             const SizedBox(height: 24),
-//             const GradientText(
-//               '✅ Privacy Saved!',
-//               style: TextStyle(
-//                 fontSize: 28,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//             const SizedBox(height: 12),
-//             const Text(
-//               'Metadata successfully removed',
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 fontSize: 16,
-//                 color: AppColors.textSecondary,
-//                 height: 1.4,
-//               ),
-//             ),
-//             const SizedBox(height: 32),
-//             Row(
-//               children: [
-//                 Expanded(
-//                   child: TextButton(
-//                     onPressed: () => Navigator.pop(context),
-//                     child: const Text('Done'),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

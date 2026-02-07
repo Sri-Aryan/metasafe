@@ -23,7 +23,7 @@ class OnboardingPageView extends StatelessWidget {
           Icon(
             page.icon,
             size: 120,
-            color: page.accentColor.withOpacity(0.9),
+            color: page.accentColor,
           ),
           const SizedBox(height: 48),
           Text(

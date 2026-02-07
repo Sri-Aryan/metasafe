@@ -11,6 +11,7 @@ class AppTheme {
       brightness: Brightness.dark,
       primary: AppColors.primaryLightBlue,
       onPrimary: AppColors.whiteText,
+
       background: AppColors.blackBackground,
       onBackground: AppColors.whiteText,
       surface: AppColors.glassSurface,

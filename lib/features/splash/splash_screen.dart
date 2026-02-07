@@ -89,7 +89,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                               height: 1.2,
                               shadows: [
                                 Shadow(
-                                  color: Colors.black.withOpacity(0.4),
+                                  color: Colors.black,
                                   offset: const Offset(0, 2),
                                   blurRadius: 6,
                                 ),

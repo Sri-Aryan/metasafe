@@ -78,9 +78,9 @@ class _ProgressDots extends StatelessWidget {
           width: 12,
           height: 12,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.4),
+            color: Colors.white,
             shape: BoxShape.circle,
-            border: Border.all(color: Colors.white.withOpacity(0.6)),
+            border: Border.all(color: Colors.white),
           ),
         ),
       ),
